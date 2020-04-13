@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 
 class TaskList extends Component {
     
-    
     constructor(props){
         super(props);
         this.state = {
@@ -29,8 +28,12 @@ class TaskList extends Component {
     }
 
     render() {
-        var { tasks } = this.props; // this.props.task
+        var tasks = this.props.tasks; // this.props.task
+        console.log(tasks);
+
         var elmTasks = tasks.map((task, index) => {
+            console.log(task, index)
+
             return <TaskItem 
                         key={task.id} 
                         index={index} 
@@ -74,7 +77,7 @@ class TaskList extends Component {
                         </td>
                         <td />
                     </tr>
-                    {elmTasks}
+                    { elmTasks }
                 </tbody>
             </table>
         );

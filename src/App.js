@@ -10,6 +10,7 @@ class App extends Component {
     constructor(props){
         super(props);
         this.state = {
+            tasks: [],
             isDisplayForm: false,
             taskEditting : null,
             filter : {
@@ -177,7 +178,6 @@ class App extends Component {
 
         var elmTaskForm = isDisplayForm ? <TaskForm 
                                                 onCloseForm={this.onCloseForm} 
-                                                onSubmit={this.onSubmit}
                                                 taskEdit={taskEditting}/> : '';
         return (
             <div className="container">

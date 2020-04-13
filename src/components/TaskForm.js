@@ -62,7 +62,6 @@ class TaskForm extends Component {
         this.props.onAddTask(this.state)
         this.onClear();
         this.onCloseForm();
-        
     }
 
     onClear = () =>{
