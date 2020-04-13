@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+import * as actions  from './../actions/index';
 
 class TaskItem extends Component {
     onUpdateStatus = () =>{
-        this.props.onUpdateStatus(this.props.task.id)
+        this.props.onUpdateStatusProps(this.props.task.id)
     }
 
-    onDetele = () => {
-        this.props.onDetele(this.props.task.id)
+    onDeteleTask = () => {
+        this.props.onDeleteTaskProps(this.props.task.id)
     }
 
     onUpdateData = () =>{
@@ -14,6 +16,7 @@ class TaskItem extends Component {
     }
 
     render() {
+        
         var { task, index } = this.props;
         return (
             <tr>
@@ -33,7 +36,9 @@ class TaskItem extends Component {
                         onClick={ this.onUpdateData }>
                         <span className="fa fa-pencil mr-5" />Sửa
                     </button>&nbsp;
-                    <button type="button" className="btn btn-danger" onClick={this.onDetele}>
+                    <button type="button" 
+                            className="btn btn-danger" 
+                            onClick={ this.onDeteleTask }>
                         <span className="fa fa-trash mr-5" />Xóa
                     </button>
                 </td>
@@ -41,5 +46,20 @@ class TaskItem extends Component {
         );
     }
 }
+const mapStateToProps = id => {
+    return {};
+}
 
-export default TaskItem;
+const mapDispathToProps = (dispatch, props) => {
+    return {
+        onUpdateStatusProps : (id) => {
+            dispatch(actions.updateStatus(id));
+        }, 
+        onDeleteTaskProps: id => {
+            dispatch(actions.deleteTask(id))
+        }
+    };
+}
+
+
+export default connect(mapStateToProps, mapDispathToProps) (TaskItem);

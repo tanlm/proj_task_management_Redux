@@ -12,3 +12,38 @@ export const addTask = (task) => {
         task //task : task
     };
 };
+
+export const toggleForm = task => {
+  return {
+        type: types.TOGGLE_FORM
+  }
+}
+
+export const openForm = task => {
+    return {
+        type: types.OPEN_FORM
+    }
+}
+
+export const closeForm = task => {
+    return {
+        type: types.CLOSE_FORM
+    }
+}
+
+export const updateStatus = id => {
+    return {
+        type: types.UPDATE_STATUS,
+        id //task : task
+    }
+}
+
+export const deleteTask = id => {
+    return {
+        type: types.DELETE_TASK,
+        id //id: id
+    }
+}
+
+
+

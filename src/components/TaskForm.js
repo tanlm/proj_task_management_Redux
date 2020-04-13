@@ -41,7 +41,7 @@ class TaskForm extends Component {
         }
     }
 
-    onCloseForm = () => {
+    onExitForm = () => {
         this.props.onCloseForm();
     }
 
@@ -61,7 +61,7 @@ class TaskForm extends Component {
         e.preventDefault();
         this.props.onAddTask(this.state)
         this.onClear();
-        this.onCloseForm();
+        this.onExitForm();
     }
 
     onClear = () =>{
@@ -72,15 +72,15 @@ class TaskForm extends Component {
     }
 
     render() {
-
         var id = this.state.id;
         return (
             <div className="panel panel-warning">
                 <div className="panel-heading">
-                    <h3 className="panel-title"> {id !== '' ? 'Cập nhật công việc' : 'Thêm công việc'}
+                    <h3 className="panel-title"> 
+                        {id !== '' ? 'Cập nhật công việc' : 'Thêm công việc'} &nbsp;
                         <span 
                             className="fa fa-times-circle text-right" 
-                            onClick={this.onCloseForm}
+                            onClick={this.onExitForm}
                         ></span>
                     </h3>
                 </div>
@@ -123,14 +123,16 @@ class TaskForm extends Component {
 
 const mapStateToProps = state =>{
     return  {
-
     }
 };
 
-const mapDispatchToProps = (dispathch,props) => {
+const mapDispatchToProps = (dispatch,props) => {
     return {
         onAddTask : (task) => {
-            dispathch(actions.addTask(task))
+            dispatch(actions.addTask(task))
+        },
+        onCloseForm  : () => {
+            dispatch(actions.closeForm());
         }
     }
 };
