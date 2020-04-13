@@ -2,15 +2,14 @@ import React, {Component} from 'react';
 import './App.css';
 import TaskForm from './components/TaskForm';
 import Control from './components/Control';
-import TaskList from './components/TaskList'
-import _ from 'lodash'
+import TaskList from './components/TaskList';
+
 
 class App extends Component {
 
     constructor(props){
         super(props);
         this.state = {
-            tasks : [],
             isDisplayForm: false,
             taskEditting : null,
             filter : {
@@ -31,16 +30,11 @@ class App extends Component {
             this.setState({
                 tasks : tasks
             });
+            console.log(this.state);
         }
     }
 
-    s4(){
-        return Math.floor((1+Math.random()) * 0x10000).toString(16).substring(1);
-    }
-
-    generateID(){
-        return this.s4() + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4() + '-' + this.s4();
-    }
+ 
 
     onToggleForm = () =>{
         if(this.state.isDisplayForm && this.state.taskEditting != null)
@@ -111,6 +105,7 @@ class App extends Component {
     }
 
     onDetele = (id) => {
+        console.log(id);
         var { tasks } = this.state;
         var index = this.findIndex(id);
         if (index !== -1) {
@@ -155,30 +150,30 @@ class App extends Component {
 
 
     render(){
-        var { tasks, isDisplayForm, taskEditting, filter, keyWord } = this.state; // var tasks = this.state.tasks
+        var { isDisplayForm, taskEditting, filter, keyWord } = this.state; // var tasks = this.state.tasks
 
-        if (filter){
-            if (filter.filterName){
-                tasks = tasks.filter((task) => {
-                    return task.name.toLowerCase().indexOf(filter.filterName) !== -1;
-                });
-            }
+        // if (filter){
+        //     if (filter.filterName){
+        //         tasks = tasks.filter((task) => {
+        //             return task.name.toLowerCase().indexOf(filter.filterName) !== -1;
+        //         });
+        //     }
             
-            tasks = tasks.filter((task) => {
-                if (filter.filterStatus === -1)
-                {
-                    return task;
-                }else{
-                    return task.status = (filter.filterStatus === 1 ? true : false);
-                }
-            });
-        }
-        if(keyWord)
-        {
-            tasks = tasks.filter((task) => {
-                return task.name.toLowerCase().indexOf(keyWord) !== -1;
-            });
-        }
+        //     tasks = tasks.filter((task) => {
+        //         if (filter.filterStatus === -1)
+        //         {
+        //             return task;
+        //         }else{
+        //             return task.status = (filter.filterStatus === 1 ? true : false);
+        //         }
+        //     });
+        // }
+        // if(keyWord)
+        // {
+        //     tasks = tasks.filter((task) => {
+        //         return task.name.toLowerCase().indexOf(keyWord) !== -1;
+        //     });
+        // }
 
         var elmTaskForm = isDisplayForm ? <TaskForm 
                                                 onCloseForm={this.onCloseForm} 
@@ -210,7 +205,7 @@ class App extends Component {
                         {/* List */}
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <TaskList tasks={tasks} 
+                                <TaskList 
                                     onUpdateStatus={this.onUpdateStatus} 
                                     onDetele={this.onDetele} 
                                     onUpdateData={this.onUpdateData}
