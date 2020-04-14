@@ -12,11 +12,10 @@ class TaskItem extends Component {
     }
 
     onUpdateData = () =>{
-        this.props.onUpdateData(this.props.task.id)
+        this.props.onUpdateDataProps(this.props.task.id)
     }
 
     render() {
-        
         var { task, index } = this.props;
         return (
             <tr>
@@ -57,6 +56,9 @@ const mapDispathToProps = (dispatch, props) => {
         }, 
         onDeleteTaskProps: id => {
             dispatch(actions.deleteTask(id))
+        },
+        onUpdateDataProps: id => {
+            dispatch(actions.updateTask(id))
         }
     };
 }

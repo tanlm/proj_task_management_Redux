@@ -74,20 +74,6 @@ class App extends Component {
         return result;
     }
 
-    onDetele = (id) => {
-        console.log(id);
-        var { tasks } = this.state;
-        var index = this.findIndex(id);
-        if (index !== -1) {
-            tasks.splice(index, 1);
-            this.setState({
-                tasks: tasks
-            });
-            localStorage.setItem('tasks', JSON.stringify(tasks));
-        }
-        this.onCloseForm();
-    }
-
     onUpdateData = (id) =>{
         var { tasks } = this.state;
         var index = this.findIndex(id);

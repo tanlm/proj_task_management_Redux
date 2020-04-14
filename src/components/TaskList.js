@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import TaskItem from './TaskItem';
 import { connect } from 'react-redux';
+import * as actions from 'react-redux';
 
 class TaskList extends Component {
     
@@ -35,7 +36,6 @@ class TaskList extends Component {
                         index={index} 
                         task={task}
                         onDetele={this.props.onDetele}
-                        onUpdateData={this.props.onUpdateData}
                         />
         }) 
         return (

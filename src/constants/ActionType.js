@@ -5,4 +5,6 @@ export const CLOSE_FORM = 'CLOSE_FORM';
 export const OPEN_FORM = 'OPEN_FORM';
 export const UPDATE_STATUS = 'UPDATE_STATUS';
 export const DELETE_TASK = 'DELETE_TASK';
+export const UPDATE_TASK = 'UPDATE_TASK';
+
 
