@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
-import * as actions  from './../actions/index';
+import { connect } from 'react-redux';
+import * as actions from './../actions/index';
 
 class TaskItem extends Component {
-    onUpdateStatus = () =>{
+    onUpdateStatus = () => {
         this.props.onUpdateStatusProps(this.props.task.id)
     }
 
@@ -11,7 +11,7 @@ class TaskItem extends Component {
         this.props.onDeleteTaskProps(this.props.task.id)
     }
 
-    onUpdateData = () =>{
+    onUpdateData = () => {
         this.props.onUpdateDataProps(this.props.task.id)
     }
 
@@ -22,22 +22,22 @@ class TaskItem extends Component {
                 <td>{index + 1}</td>
                 <td>{task.name}</td>
                 <td className="text-center">
-                    <span 
+                    <span
                         className={task.status === true ? 'label label-success' : 'label label-danger'}
                         onClick={this.onUpdateStatus}>
-                            {task.status === true ? 'kích hoạt' : 'không kích hoạt'}
+                        {task.status === true ? 'kích hoạt' : 'không kích hoạt'}
                     </span>
                 </td>
                 <td className="text-center">
-                    <button 
-                        type="button" 
-                        className="btn btn-warning" 
-                        onClick={ this.onUpdateData }>
+                    <button
+                        type="button"
+                        className="btn btn-warning"
+                        onClick={this.onUpdateData}>
                         <span className="fa fa-pencil mr-5" />Sửa
                     </button>&nbsp;
-                    <button type="button" 
-                            className="btn btn-danger" 
-                            onClick={ this.onDeteleTask }>
+                    <button type="button"
+                        className="btn btn-danger"
+                        onClick={this.onDeteleTask}>
                         <span className="fa fa-trash mr-5" />Xóa
                     </button>
                 </td>
@@ -51,9 +51,9 @@ const mapStateToProps = id => {
 
 const mapDispathToProps = (dispatch, props) => {
     return {
-        onUpdateStatusProps : (id) => {
+        onUpdateStatusProps: (id) => {
             dispatch(actions.updateStatus(id));
-        }, 
+        },
         onDeleteTaskProps: id => {
             dispatch(actions.deleteTask(id))
         },
@@ -64,4 +64,4 @@ const mapDispathToProps = (dispatch, props) => {
 }
 
 
-export default connect(mapStateToProps, mapDispathToProps) (TaskItem);
+export default connect(mapStateToProps, mapDispathToProps)(TaskItem);

@@ -1,14 +1,14 @@
 import * as types from './../constants/ActionType'
 
-export const listAll = () =>{
+export const listAll = () => {
     return {
-        type : types.LIST_ALL
+        type: types.LIST_ALL
     };
 };
 
 export const addTask = (task) => {
-    return{
-        type : types.ADD_TASK,
+    return {
+        type: types.ADD_TASK,
         task //task : task
     };
 };
@@ -46,10 +46,10 @@ export const deleteTask = id => {
 }
 
 export const updateTask = id => {
-  return {
-    type: types.UPDATE_TASK,
-    id //id: id
-  }
+    return {
+        type: types.UPDATE_TASK,
+        id //id: id
+    }
 }
 
 

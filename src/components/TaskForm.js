@@ -2,21 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './../actions/index'
 
-
 class TaskForm extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
-            id : '',
-            name : '',
+            id: '',
+            name: '',
             status: true
         };
     }
 
-    componentWillMount(){
-        if (this.props.taskEdit)
-        {
+    componentWillMount() {
+        if (this.props.taskEdit) {
             this.setState({
                 id: this.props.taskEdit.id,
                 name: this.props.taskEdit.name,
@@ -25,14 +23,14 @@ class TaskForm extends Component {
         }
     }
 
-    componentWillReceiveProps(nextProps){
+    componentWillReceiveProps(nextProps) {
         if (nextProps && nextProps.taskEdit) {
             this.setState({
                 id: nextProps.taskEdit.id,
                 name: nextProps.taskEdit.name,
                 status: nextProps.taskEdit.status,
             });
-        }else if(nextProps && nextProps.taskEdit === null){
+        } else if (nextProps && nextProps.taskEdit === null) {
             this.setState({
                 id: '',
                 name: '',
@@ -45,26 +43,26 @@ class TaskForm extends Component {
         this.props.onCloseForm();
     }
 
-    onChange = (e) =>{
+    onChange = (e) => {
         var target = e.target;
         var name = target.name;
         var value = target.value;
-        if(name === 'status'){
+        if (name === 'status') {
             value = target.value === 'true' ? true : false;
         }
         this.setState({
-            [name] : value
+            [name]: value
         });
     }
 
-    onSubmit = (e)=>{
+    onSubmit = (e) => {
         e.preventDefault();
         this.props.onAddTask(this.state)
         this.onClear();
         this.onExitForm();
     }
 
-    onClear = () =>{
+    onClear = () => {
         this.setState({
             name: '',
             status: true
@@ -76,10 +74,10 @@ class TaskForm extends Component {
         return (
             <div className="panel panel-warning">
                 <div className="panel-heading">
-                    <h3 className="panel-title"> 
+                    <h3 className="panel-title">
                         {id !== '' ? 'Cập nhật công việc' : 'Thêm công việc'} &nbsp;
-                        <span 
-                            className="fa fa-times-circle text-right" 
+                        <span
+                            className="fa fa-times-circle text-right"
                             onClick={this.onExitForm}
                         ></span>
                     </h3>
@@ -88,17 +86,17 @@ class TaskForm extends Component {
                     <form onSubmit={this.onSubmit}>
                         <div className="form-group">
                             <label>Tên :</label>
-                            <input 
-                                type="text" 
+                            <input
+                                type="text"
                                 className="form-control"
-                                name = "name" 
-                                value = {this.state.name}
+                                name="name"
+                                value={this.state.name}
                                 onChange={this.onChange}
-                                />
+                            />
                         </div>
                         <label>Trạng Thái :</label>
-                        <select 
-                            className="form-control" 
+                        <select
+                            className="form-control"
                             required="required"
                             name="status"
                             value={this.state.status}
@@ -109,8 +107,8 @@ class TaskForm extends Component {
                         <br />
                         <div className="text-center">
                             <button type="submit" className="btn btn-warning">Lưu</button>&nbsp;
-                            <button 
-                                type="button" 
+                            <button
+                                type="button"
                                 className="btn btn-danger"
                                 onClick={this.onClear}>Hủy Bỏ</button>
                         </div>
@@ -121,18 +119,18 @@ class TaskForm extends Component {
     }
 }
 
-const mapStateToProps = state =>{
-    return  {
+const mapStateToProps = state => {
+    return {
         //isDisplayForm
     }
 };
 
-const mapDispatchToProps = (dispatch,props) => {
+const mapDispatchToProps = (dispatch, props) => {
     return {
-        onAddTask : (task) => {
+        onAddTask: (task) => {
             dispatch(actions.addTask(task))
         },
-        onCloseForm  : () => {
+        onCloseForm: () => {
             dispatch(actions.closeForm());
         }
     }
