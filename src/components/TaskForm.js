@@ -9,17 +9,19 @@ class TaskForm extends Component {
         this.state = {
             id: '',
             name: '',
-            status: true
+            status: false
         };
     }
 
     componentWillMount() {
-        if (this.props.taskEdit) {
+        if (this.props.taskEdit && this.props.taskEdit.id) {
             this.setState({
                 id: this.props.taskEdit.id,
                 name: this.props.taskEdit.name,
                 status: this.props.taskEdit.status,
             });
+        } else {
+            this.onClear();
         }
     }
 
@@ -31,13 +33,20 @@ class TaskForm extends Component {
                 status: nextProps.taskEdit.status,
             });
         } else if (nextProps && nextProps.taskEdit === null) {
-            this.setState({
-                id: '',
-                name: '',
-                status: true
-            });
+            this.onClear();
         }
+        console.log(nextProps.filterTasks);
+        
     }
+
+    onClear = () => {
+        this.setState({
+            id: '',
+            name: '',
+            status: true
+        });
+    }
+
 
     onExitForm = () => {
         this.props.onCloseForm();
@@ -57,15 +66,15 @@ class TaskForm extends Component {
 
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onAddTask(this.state)
+        this.props.onSaveTask(this.state)
         this.onClear();
         this.onExitForm();
     }
 
-    onClear = () => {
+    onClearInput = () => {
         this.setState({
             name: '',
-            status: true
+            status: false
         });
     }
 
@@ -101,8 +110,8 @@ class TaskForm extends Component {
                             name="status"
                             value={this.state.status}
                             onChange={this.onChange}>
+                            <option value={false}>Không kích hoạt</option>
                             <option value={true}>Kích Hoạt</option>
-                            <option value={false}>Ẩn</option>
                         </select>
                         <br />
                         <div className="text-center">
@@ -110,7 +119,7 @@ class TaskForm extends Component {
                             <button
                                 type="button"
                                 className="btn btn-danger"
-                                onClick={this.onClear}>Hủy Bỏ</button>
+                                onClick={this.onClearInput}>Hủy Bỏ</button>
                         </div>
                     </form>
                 </div>
@@ -121,19 +130,21 @@ class TaskForm extends Component {
 
 const mapStateToProps = state => {
     return {
-        //isDisplayForm
-    }
+        isDisplayForm: state.isDisplayForm,
+        taskEdit: state.task_reducer,
+        filterTasks: state.filterTasks
+    };
 };
 
 const mapDispatchToProps = (dispatch, props) => {
     return {
-        onAddTask: (task) => {
-            dispatch(actions.addTask(task))
+        onSaveTask: (task) => {
+            dispatch(actions.saveTask(task))
         },
         onCloseForm: () => {
             dispatch(actions.closeForm());
         }
-    }
+    };
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(TaskForm);

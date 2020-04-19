@@ -12,7 +12,6 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            taskEditting: null,
             filter: {
                 filterName: '',
                 filterStatus: -1
@@ -35,66 +34,28 @@ class App extends Component {
     }
 
     onToggleForm = () => {
-        this.props.onToggleForm();
-    }
-
-    onShowForm = () => {
-        this.setState({
-            isDisplayForm: true
-        });
-    }
-
-    onSubmit = (data) => {
-        var { tasks } = this.state;
-        if (data.id === '') {
-            data.id = this.generateID();
-            tasks.push(data);
+        var { itemEditing } = this.props;
+        if (itemEditing && itemEditing.id !== '') {
+            this.props.onOpenTaskForm();
         } else {
-            var index = this.findIndex(data.id);
-            tasks[index] = data;
+            this.props.onToggleForm();
         }
-        this.setState({
-            tasks: tasks,
-            taskEditting: null
-        });
-        localStorage.setItem('tasks', JSON.stringify(tasks));
-    }
-
-
-
-    findIndex = (id) => {
-        var { tasks } = this.state;
-        var result = -1
-        tasks.forEach((task, index) => {
-            if (task.id === id) {
-                result = index;
-            }
-        });
-        return result;
-    }
-
-    onUpdateData = (id) => {
-        var { tasks } = this.state;
-        var index = this.findIndex(id);
-        var taskEdit = tasks[index];
-        if (index !== -1) {
-            this.setState({
-                taskEditting: taskEdit
-            });
-            console.log(this.state.taskEditting)
-        }
-        this.onShowForm();
-    }
-
-    onFilter = (filterName, filterStatus) => {
-        filterStatus = parseInt(filterStatus, 10);
-        this.setState({
-            filter: {
-                filterName: filterName,
-                filterStatus: filterStatus
-            }
+        this.props.onClearForm({
+            id: '',
+            name: '',
+            status: false
         });
     }
+
+    // onFilter = (filterName, filterStatus) => {
+    //     filterStatus = parseInt(filterStatus, 10);
+    //     this.setState({
+    //         filter: {
+    //             filterName: filterName,
+    //             filterStatus: filterStatus
+    //         }
+    //     });
+    // }
 
     onSearch = (keyWord) => {
         console.log(keyWord);
@@ -105,24 +66,9 @@ class App extends Component {
 
 
     render() {
-        var { taskEditting, filter, keyWord } = this.state; // var tasks = this.state.tasks
+        // var { filter, keyWord } = this.state; // var tasks = this.state.tasks
 
-        // if (filter){
-        //     if (filter.filterName){
-        //         tasks = tasks.filter((task) => {
-        //             return task.name.toLowerCase().indexOf(filter.filterName) !== -1;
-        //         });
-        //     }
-
-        //     tasks = tasks.filter((task) => {
-        //         if (filter.filterStatus === -1)
-        //         {
-        //             return task;
-        //         }else{
-        //             return task.status = (filter.filterStatus === 1 ? true : false);
-        //         }
-        //     });
-        // }
+        
         // if(keyWord)
         // {
         //     tasks = tasks.filter((task) => {
@@ -131,7 +77,7 @@ class App extends Component {
         // }
         var { isDisplayForm } = this.props;
 
-        var elmTaskForm = isDisplayForm ? <TaskForm taskEdit={taskEditting} /> : '';
+        var elmTaskForm = isDisplayForm ? <TaskForm /> : '';
         return (
             <div className="container">
                 <div className="text-center">
@@ -159,8 +105,6 @@ class App extends Component {
                         <div className="row mt-15">
                             <div className="col-xs-12 col-sm-12 col-md-12 col-lg-12">
                                 <TaskList
-                                    onDetele={this.onDetele}
-                                    onUpdateData={this.onUpdateData}
                                     onFilter={this.onFilter}
                                 />
                             </div>
@@ -174,7 +118,8 @@ class App extends Component {
 
 const mapStateToProps = state => {
     return {
-        isDisplayForm: state.isDisplayForm
+        isDisplayForm: state.isDisplayForm,
+        itemEditing: state.task_reducer
     };
 }
 
@@ -182,9 +127,14 @@ const mapDispatchToProps = (dispatch, props) => {
     return {
         onToggleForm: () => {
             dispatch(actions.toggleForm());
+        },
+        onClearForm: (task) => {
+            dispatch(actions.updateTask(task));
+        },
+        onOpenTaskForm: () => {
+            dispatch(actions.openForm())
         }
     };
 }
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

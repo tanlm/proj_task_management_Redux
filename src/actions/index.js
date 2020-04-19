@@ -6,9 +6,9 @@ export const listAll = () => {
     };
 };
 
-export const addTask = (task) => {
+export const saveTask = (task) => {
     return {
-        type: types.ADD_TASK,
+        type: types.saveTask,
         task //task : task
     };
 };
@@ -45,12 +45,16 @@ export const deleteTask = id => {
     }
 }
 
-export const updateTask = id => {
+export const updateTask = task => {
     return {
-        type: types.UPDATE_TASK,
-        id //id: id
+        type: types.updateTaskItem,
+        task //id: id
     }
 }
 
-
-
+export const filterTasks = filterState => {
+    return {
+        type: types.filterTasks,
+        filterState //id: id
+    }
+}

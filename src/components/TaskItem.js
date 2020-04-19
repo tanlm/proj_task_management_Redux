@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import * as actions from './../actions/index';
 
 class TaskItem extends Component {
+
+
     onUpdateStatus = () => {
         this.props.onUpdateStatusProps(this.props.task.id)
     }
@@ -11,8 +13,9 @@ class TaskItem extends Component {
         this.props.onDeleteTaskProps(this.props.task.id)
     }
 
-    onUpdateData = () => {
-        this.props.onUpdateDataProps(this.props.task.id)
+    onSelectItem = () => {
+        this.props.onOpenTaskForm();
+        this.props.onSelectItemProps(this.props.task);
     }
 
     render() {
@@ -32,7 +35,7 @@ class TaskItem extends Component {
                     <button
                         type="button"
                         className="btn btn-warning"
-                        onClick={this.onUpdateData}>
+                        onClick={this.onSelectItem}>
                         <span className="fa fa-pencil mr-5" />Sửa
                     </button>&nbsp;
                     <button type="button"
@@ -45,8 +48,10 @@ class TaskItem extends Component {
         );
     }
 }
-const mapStateToProps = id => {
-    return {};
+const mapStateToProps = state => {
+    return {
+       
+    };
 }
 
 const mapDispathToProps = (dispatch, props) => {
@@ -57,8 +62,11 @@ const mapDispathToProps = (dispatch, props) => {
         onDeleteTaskProps: id => {
             dispatch(actions.deleteTask(id))
         },
-        onUpdateDataProps: id => {
-            dispatch(actions.updateTask(id))
+        onSelectItemProps: task => {
+            dispatch(actions.updateTask(task))
+        },
+        onOpenTaskForm: () => {
+            dispatch(actions.openForm())    
         }
     };
 }
