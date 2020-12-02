@@ -6,7 +6,6 @@ import TaskList from './components/TaskList';
 import { connect } from 'react-redux';
 import * as actions from './actions/index';
 
-
 class App extends Component {
 
     constructor(props) {
@@ -66,15 +65,6 @@ class App extends Component {
 
 
     render() {
-        // var { filter, keyWord } = this.state; // var tasks = this.state.tasks
-
-        
-        // if(keyWord)
-        // {
-        //     tasks = tasks.filter((task) => {
-        //         return task.name.toLowerCase().indexOf(keyWord) !== -1;
-        //     });
-        // }
         var { isDisplayForm } = this.props;
 
         var elmTaskForm = isDisplayForm ? <TaskForm /> : '';

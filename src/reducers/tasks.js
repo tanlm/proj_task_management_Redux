@@ -26,6 +26,7 @@ var myReducer = (state = initialState, action) => {
         case types.LIST_ALL:
             return state;
         case types.saveTask:
+            console.log(action.task);
             var task = {
                 id: action.task.id,
                 name: action.task.name,
