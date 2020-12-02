@@ -10,7 +10,9 @@ class TaskList extends Component {
         super(props);
         this.state = {
             filterName: '',
-            filterStatus: -1
+            filterStatus: -1, 
+            filterMoney: '',
+            filterDateTime: ''
         }
     }
 
@@ -29,9 +31,8 @@ class TaskList extends Component {
     }
 
     render() {
-        var { tasks, filterState } = this.props; // this.props.task
-        console.log("TaskList -> render -> filterState", filterState)
-
+        // this.props.task
+        var { tasks, filterState } = this.props; 
         // fill on table
         if (filterState) {
             if (filterState.filterName) {
@@ -48,8 +49,6 @@ class TaskList extends Component {
                 }
             });
         }
-
-
         var elmTasks = tasks.map((task, index) => {
             return <TaskItem
                 key={index}
@@ -63,6 +62,8 @@ class TaskList extends Component {
                     <tr>
                         <th className="text-center">STT</th>
                         <th className="text-center">Tên</th>
+                        <th className="text-center">Số tiền</th>
+                        <th className="text-center">Ngày tháng</th>
                         <th className="text-center">Trạng Thái</th>
                         <th className="text-center">Hành Động</th>
                     </tr>
@@ -76,6 +77,22 @@ class TaskList extends Component {
                                 className="form-control"
                                 name="filterName"
                                 value={this.state.filterName}
+                                onChange={this.onChangeControl} />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="filterName"
+                                value={this.state.filterMoney}
+                                onChange={this.onChangeControl} />
+                        </td>
+                        <td>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="filterName"
+                                value={this.state.filterDateTime}
                                 onChange={this.onChangeControl} />
                         </td>
                         <td>

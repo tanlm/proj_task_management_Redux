@@ -24,6 +24,8 @@ class TaskItem extends Component {
             <tr>
                 <td>{index + 1}</td>
                 <td>{task.name}</td>
+                <td>{task.money}</td>
+                <td>{task.dateTime}</td>
                 <td className="text-center">
                     <span
                         className={task.status === true ? 'label label-success' : 'label label-danger'}
@@ -59,7 +61,7 @@ const mapDispathToProps = (dispatch, props) => {
         onUpdateStatusProps: (id) => {
             dispatch(actions.updateStatus(id));
         },
-        onDeleteTaskProps: id => {
+        onDeleteTaskProps: (id) => {
             dispatch(actions.deleteTask(id))
         },
         onSelectItemProps: task => {

@@ -103,6 +103,26 @@ class TaskForm extends Component {
                                 onChange={this.onChange}
                             />
                         </div>
+                        <div className="form-group">
+                            <label>Số tiền :</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="money"
+                                value={this.state.name}
+                                onChange={this.onChange}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Ngày tháng :</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="dateTime"
+                                value={this.state.name}
+                                onChange={this.onChange}
+                            />
+                        </div>
                         <label>Trạng Thái :</label>
                         <select
                             className="form-control"
