@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './../actions/index'
+import * as messages from './../constants/Message.js'
 
 class TaskForm extends Component {
 
@@ -9,7 +10,10 @@ class TaskForm extends Component {
         this.state = {
             id: '',
             name: '',
-            status: false
+            money: '',
+            dateTime:'',
+            status: false,
+            errors: {}
         };
     }
 
@@ -43,10 +47,12 @@ class TaskForm extends Component {
         this.setState({
             id: '',
             name: '',
-            status: true
+            money: '',
+            dateTime:'',
+            status: false,
+            errors: {}
         });
     }
-
 
     onExitForm = () => {
         this.props.onCloseForm();
@@ -64,16 +70,54 @@ class TaskForm extends Component {
         });
     }
 
+    handleValidation(){
+        let fields = this.state;
+        let errors = {};
+        let formIsValid = true;
+
+        // Name
+        if(!fields.name){
+           formIsValid = false;
+           errors["name"] = messages.NOT_EMPTY;
+        }
+        if(typeof fields.name !== "undefined"){
+           if(!fields["name"].match(/^[a-zA-Z]+$/)){
+              formIsValid = false;
+              errors["name"] = messages.ONLY_FONT;
+           }        
+        }
+   
+        // money
+        if(!fields.money){
+           formIsValid = false;
+           errors["money"] = messages.NOT_EMPTY;
+        }
+        if(typeof fields.money !== "undefined"){
+            if(fields["money"].match(/^[a-zA-Z]+$/)){
+               formIsValid = false;
+               errors["money"] = messages.ONLY_NUMBER;
+            }        
+        }
+
+       this.setState({errors: errors});
+       return formIsValid;
+    }
+
     onSubmit = (e) => {
         e.preventDefault();
-        this.props.onSaveTask(this.state)
-        this.onClear();
-        this.onExitForm();
+        console.log(this.state);
+        if(this.handleValidation()){
+            this.props.onSaveTask(this.state)
+            this.onClear();
+            this.onExitForm();
+        }
     }
 
     onClearInput = () => {
         this.setState({
             name: '',
+            money: '',
+            dateTime: '',
             status: false
         });
     }
@@ -102,6 +146,29 @@ class TaskForm extends Component {
                                 value={this.state.name}
                                 onChange={this.onChange}
                             />
+                            <span style={{color: "red"}}>{this.state.errors["name"]}</span>
+                        </div>
+                        <div className="form-group">
+                            <label>Số tiền :</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="money"
+                                value={this.state.money}
+                                onChange={this.onChange}
+                            />
+                            <span style={{color: "red"}}>{this.state.errors["money"]}</span>
+                        </div>
+                        <div className="form-group">
+                            <label>Ngày tháng :</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                name="dateTime"
+                                value={this.state.dateTime}
+                                onChange={this.onChange}
+                            />
+                            <span style={{color: "red"}}>{this.state.errors["dateTime"]}</span>
                         </div>
                         <label>Trạng Thái :</label>
                         <select

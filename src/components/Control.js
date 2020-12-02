@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Search from './Search'
 import Sort from './Sort'
+import Export_Excel from './Export_Excel'
 
 class Control extends Component {
     render() {
@@ -10,6 +11,7 @@ class Control extends Component {
                 <Search onSearch={this.props.onSearch} />
                 {/*Sort*/}
                 <Sort />
+                <Export_Excel />
             </div>
         );
     }

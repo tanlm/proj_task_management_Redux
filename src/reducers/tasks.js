@@ -29,7 +29,9 @@ var myReducer = (state = initialState, action) => {
             var task = {
                 id: action.task.id,
                 name: action.task.name,
-                status: action.task.status
+                status: action.task.status,
+                money: action.task.money,
+                dateTime: action.task.dateTime
             };
             if (!task.id) {
                 task.id = generateID();
