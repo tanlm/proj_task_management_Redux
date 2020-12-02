@@ -109,6 +109,14 @@ class TaskList extends Component {
                         <td />
                     </tr>
                     {elmTasks}
+                    <tr>
+                        <td></td>
+                        <td></td>
+                        <td>Tổng:</td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                    </tr>
                 </tbody>
             </table>
         );

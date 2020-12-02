@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import * as actions from './../actions/index'
-
+import * as messages from './../constants/Message.js'
 
 class TaskForm extends Component {
 
@@ -47,10 +47,12 @@ class TaskForm extends Component {
         this.setState({
             id: '',
             name: '',
-            status: true
+            money: '',
+            dateTime:'',
+            status: false,
+            errors: {}
         });
     }
-
 
     onExitForm = () => {
         this.props.onCloseForm();
@@ -73,23 +75,28 @@ class TaskForm extends Component {
         let errors = {};
         let formIsValid = true;
 
-        //Name
+        // Name
         if(!fields.name){
            formIsValid = false;
-           errors["name"] = "Cannot be empty";
+           errors["name"] = messages.NOT_EMPTY;
         }
-  
         if(typeof fields.name !== "undefined"){
            if(!fields["name"].match(/^[a-zA-Z]+$/)){
               formIsValid = false;
-              errors["name"] = "Only letters";
+              errors["name"] = messages.ONLY_FONT;
            }        
         }
    
-        //Email
+        // money
         if(!fields.money){
            formIsValid = false;
-           errors["money"] = "Cannot be empty";
+           errors["money"] = messages.NOT_EMPTY;
+        }
+        if(typeof fields.money !== "undefined"){
+            if(fields["money"].match(/^[a-zA-Z]+$/)){
+               formIsValid = false;
+               errors["money"] = messages.ONLY_NUMBER;
+            }        
         }
 
        this.setState({errors: errors});
