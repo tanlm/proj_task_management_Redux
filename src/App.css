@@ -36,6 +36,15 @@
     transform: rotate(360deg);
   }
 }
-.mt-15{
+.mt-15 {
   margin-top: 15px;
+}
+.icon-close{
+  float: right;
+}
+.fa-plus, .fa-search, .fa-pencil, .fa-trash{
+  padding: 0 5px 0 0px;
+}
+.react-datepicker-wrapper{
+  display: inline !important;
 }
