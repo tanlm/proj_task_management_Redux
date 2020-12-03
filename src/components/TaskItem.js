@@ -28,10 +28,10 @@ function TaskItem(props) {
 
   return (
     <tr>
-      <td>{index + 1}</td>
+      <td className="text-center">{index + 1}</td>
       <td>{task.name}</td>
-      <td>{task.money}</td>
-      <td>
+      <td className="text-right">{task.money}</td>
+      <td className="text-center">
         <Moment format="DD/MM/YYYY">{task.dateTime}</Moment>
       </td>
       <td className="text-center">
@@ -54,11 +54,7 @@ function TaskItem(props) {
           Sửa
         </button>
         &nbsp;
-        <button
-          type="button"
-          className="btn btn-danger"
-          onClick={onDeleteTask}
-        >
+        <button type="button" className="btn btn-danger" onClick={onDeleteTask}>
           <span className="fa fa-trash mr-5" />
           Xóa
         </button>

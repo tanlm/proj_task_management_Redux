@@ -13,6 +13,8 @@ class App extends Component {
       filter: {
         filterName: "",
         filterStatus: -1,
+        filterMoney: 0,
+        filterDateTime: "",
       },
       keyWord: "",
       sort: {
@@ -45,15 +47,17 @@ class App extends Component {
     });
   };
 
-  // onFilter = (filterName, filterStatus) => {
-  //     filterStatus = parseInt(filterStatus, 10);
-  //     this.setState({
-  //         filter: {
-  //             filterName: filterName,
-  //             filterStatus: filterStatus
-  //         }
-  //     });
-  // }
+  onFilter = (filterName, filterStatus, filterMoney, filterDateTime) => {
+    filterStatus = parseInt(filterStatus, 10);
+    this.setState({
+      filter: {
+        filterName: filterName,
+        filterStatus: filterStatus,
+        filterMoney: filterMoney,
+        filterDateTime: filterDateTime,
+      },
+    });
+  };
 
   onSearch = (keyWord) => {
     console.log(keyWord);

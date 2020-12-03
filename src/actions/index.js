@@ -54,7 +54,14 @@ export const updateTask = (task) => {
 
 export const filterTasks = (filterState) => {
   return {
-    type: ACTION_TYPES.filterTasks,
-    filterState, //id: id
+    type: ACTION_TYPES.FILTER_TASKS,
+    filterState, //filterState: filterState
+  };
+};
+
+export const searchTasks = (keyWord) => {
+  return {
+    type: ACTION_TYPES.SEARCH_KEY,
+    keyWord, //keyWord: keyWord
   };
 };
