@@ -101,7 +101,7 @@ function TaskForm(props) {
       <div className="panel-body">
         <form onSubmit={onSubmit}>
           <div className="form-group">
-            <label>Tên :</label>
+            <label>Tên công việc :</label>
             <input
               type="text"
               className="form-control"
