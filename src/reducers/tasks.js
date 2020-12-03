@@ -1,4 +1,4 @@
-import * as types from "./../constants/ActionType";
+import { ACTION_TYPES } from "./../constants/Constants";
 
 var data = JSON.parse(localStorage.getItem("tasks"));
 var initialState = data ? data : [];
@@ -25,9 +25,9 @@ var findIndex = (tasks, id) => {
 
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.LIST_ALL:
+    case ACTION_TYPES.LIST_ALL:
       return state;
-    case types.saveTask:
+    case ACTION_TYPES.SAVE_TASK:
       console.log(action.task);
       var task = {
         id: action.task.id,
@@ -45,7 +45,7 @@ var myReducer = (state = initialState, action) => {
       }
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
-    case types.UPDATE_STATUS:
+    case ACTION_TYPES.UPDATE_STATUS:
       var index = findIndex(state, action.id);
       console.log(index);
       // cach 1
@@ -55,7 +55,7 @@ var myReducer = (state = initialState, action) => {
       state.push(cloneTask);
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];
-    case types.DELETE_TASK:
+    case ACTION_TYPES.DELETE_TASK:
       state.splice(findIndex(state, action.id), 1);
       localStorage.setItem("tasks", JSON.stringify(state));
       return [...state];

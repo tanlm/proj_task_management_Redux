@@ -1,69 +1,77 @@
-import React, { Component } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import * as actions from "./../actions/index";
+import Moment from "react-moment";
 
-class TaskItem extends Component {
-  onUpdateStatus = () => {
-    this.props.onUpdateStatusProps(this.props.task.id);
+function TaskItem(props) {
+  const {
+    onUpdateStatusProps,
+    onDeleteTaskProps,
+    onOpenTaskForm,
+    onSelectItemProps,
+    task,
+    index,
+  } = props;
+
+  const onUpdateStatus = () => {
+    onUpdateStatusProps(task.id);
   };
 
-  onDeteleTask = () => {
-    this.props.onDeleteTaskProps(this.props.task.id);
+  const onDeleteTask = () => {
+    onDeleteTaskProps(task.id);
   };
 
-  onSelectItem = () => {
-    this.props.onOpenTaskForm();
-    this.props.onSelectItemProps(this.props.task);
+  const onSelectItem = () => {
+    onOpenTaskForm();
+    onSelectItemProps(task);
   };
 
-  render() {
-    var { task, index } = this.props;
-    return (
-      <tr>
-        <td>{index + 1}</td>
-        <td>{task.name}</td>
-        <td>{task.money}</td>
-        <td>{task.dateTime}</td>
-        <td className="text-center">
-          <span
-            className={
-              task.status === true
-                ? "label label-success"
-                : "label label-danger"
-            }
-            onClick={this.onUpdateStatus}
-          >
-            {task.status === true ? "kích hoạt" : "không kích hoạt"}
-          </span>
-        </td>
-        <td className="text-center">
-          <button
-            type="button"
-            className="btn btn-warning"
-            onClick={this.onSelectItem}
-          >
-            <span className="fa fa-pencil mr-5" />
-            Sửa
-          </button>
-          &nbsp;
-          <button
-            type="button"
-            className="btn btn-danger"
-            onClick={this.onDeteleTask}
-          >
-            <span className="fa fa-trash mr-5" />
-            Xóa
-          </button>
-        </td>
-      </tr>
-    );
-  }
+  return (
+    <tr>
+      <td>{index + 1}</td>
+      <td>{task.name}</td>
+      <td>{task.money}</td>
+      <td>
+        <Moment format="DD/MM/YYYY">{task.dateTime}</Moment>
+      </td>
+      <td className="text-center">
+        <span
+          className={
+            task.status === true ? "label label-success" : "label label-danger"
+          }
+          onClick={onUpdateStatus}
+        >
+          {task.status === true ? "kích hoạt" : "không kích hoạt"}
+        </span>
+      </td>
+      <td className="text-center">
+        <button
+          type="button"
+          className="btn btn-warning"
+          onClick={onSelectItem}
+        >
+          <span className="fa fa-pencil mr-5" />
+          Sửa
+        </button>
+        &nbsp;
+        <button
+          type="button"
+          className="btn btn-danger"
+          onClick={onDeleteTask}
+        >
+          <span className="fa fa-trash mr-5" />
+          Xóa
+        </button>
+      </td>
+    </tr>
+  );
 }
+
 const mapStateToProps = (state) => {
   return {};
 };
 
-const mapDispathToProps = (dispatch, props) => {
+const mapDispatchToProps = (dispatch, props) => {
   return {
     onUpdateStatusProps: (id) => {
       dispatch(actions.updateStatus(id));
@@ -80,4 +88,4 @@ const mapDispathToProps = (dispatch, props) => {
   };
 };
 
-export default connect(mapStateToProps, mapDispathToProps)(TaskItem);
+export default connect(mapStateToProps, mapDispatchToProps)(TaskItem);

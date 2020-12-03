@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import * as actions from "./../actions/index";
-import * as messages from "./../constants/Message.js";
+import { MESSAGES } from "./../constants/Constants";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 function TaskForm(props) {
   const { taskEdit, onCloseForm, onSaveTask } = props;
@@ -9,20 +11,20 @@ function TaskForm(props) {
   // create and set state
   const [id, setId] = useState("");
   const [name, setName] = useState("");
-  const [money, setMoney] = useState("");
-  const [dateTime, setDateTime] = useState("");
+  const [money, setMoney] = useState(0);
+  const [dateTime, setDateTime] = useState(new Date());
   const [status, setStatus] = useState(false);
   const [errorName, setNameError] = useState("");
   const [errorMoney, setMoneyError] = useState("");
   const [errorDateTime, setDateTimeError] = useState("");
   const [errorStatus, setStatusError] = useState(false);
   const [isUpdate, setIsUpdate] = useState(false);
-
+  const [startDate, setStartDate] = useState(new Date());
   useEffect(() => {
     if (taskEdit && taskEdit.id) {
       setId(taskEdit.id);
       setName(taskEdit.name);
-      setMoney(taskEdit.money ? taskEdit.money : "");
+      setMoney(taskEdit.money ? taskEdit.money : 0);
       setDateTime(taskEdit.dateTime ? taskEdit.dateTime : "");
       setStatus(taskEdit.status);
       setIsUpdate(true);
@@ -42,24 +44,24 @@ function TaskForm(props) {
     // Name
     if (!name) {
       formIsValid = false;
-      setNameError(messages.NOT_EMPTY);
+      setNameError(MESSAGES.NOT_EMPTY);
     }
     if (typeof name !== "undefined") {
-      if (!name.match(/^[a-zA-Z]+$/)) {
+      if (name.length >= 100) {
         formIsValid = false;
-        setNameError(messages.ONLY_FONT);
+        setNameError(MESSAGES.CHARACTERS_100);
       }
     }
 
     // money
     if (!money) {
       formIsValid = false;
-      setMoneyError(messages.NOT_EMPTY);
+      setMoneyError(MESSAGES.NOT_EMPTY);
     }
     if (typeof money !== "undefined") {
       if (money.match(/^[a-zA-Z]+$/)) {
         formIsValid = false;
-        setMoneyError(messages.ONLY_NUMBER);
+        setMoneyError(MESSAGES.ONLY_NUMBER);
       }
     }
     return formIsValid;
@@ -93,7 +95,7 @@ function TaskForm(props) {
         <h3 className="panel-title">
           {isUpdate ? "Cập nhật công việc" : "Thêm công việc"} &nbsp;
           <span
-            className="fa fa-times-circle text-right"
+            className="fa fa-times-circle text-right icon-close"
             onClick={onExitForm}
           ></span>
         </h3>
@@ -128,14 +130,17 @@ function TaskForm(props) {
           </div>
           <div className="form-group">
             <label>Ngày tháng :</label>
-            <input
-              type="text"
-              className="form-control"
-              name="dateTime"
-              value={dateTime}
-              onChange={(e) => {
-                setDateTime(e.target.value);
+            <DatePicker
+              selected={startDate}
+              onChange={(date) => {
+                setStartDate(date);
+                setDateTime(date);
               }}
+              dateFormat="dd/MM/yyyy"
+              isClearable
+              className="form-control input-date-picker"
+              value={dateTime}
+              placeholderText="I have been cleared!"
             />
             <span style={{ color: "red" }}>{errorDateTime}</span>
           </div>

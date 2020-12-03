@@ -1,60 +1,60 @@
-import * as types from "./../constants/ActionType";
+import { ACTION_TYPES } from "./../constants/Constants";
 
 export const listAll = () => {
   return {
-    type: types.LIST_ALL,
+    type: ACTION_TYPES.LIST_ALL,
   };
 };
 
 export const saveTask = (task) => {
   return {
-    type: types.saveTask,
+    type: ACTION_TYPES.SAVE_TASK,
     task, //task : task
   };
 };
 
 export const toggleForm = (task) => {
   return {
-    type: types.TOGGLE_FORM,
+    type: ACTION_TYPES.TOGGLE_FORM,
   };
 };
 
 export const openForm = (task) => {
   return {
-    type: types.OPEN_FORM,
+    type: ACTION_TYPES.OPEN_FORM,
   };
 };
 
 export const closeForm = (task) => {
   return {
-    type: types.CLOSE_FORM,
+    type: ACTION_TYPES.CLOSE_FORM,
   };
 };
 
 export const updateStatus = (id) => {
   return {
-    type: types.UPDATE_STATUS,
+    type: ACTION_TYPES.UPDATE_STATUS,
     id, //id: id
   };
 };
 
 export const deleteTask = (id) => {
   return {
-    type: types.DELETE_TASK,
+    type: ACTION_TYPES.DELETE_TASK,
     id, //id: id
   };
 };
 
 export const updateTask = (task) => {
   return {
-    type: types.updateTaskItem,
+    type: ACTION_TYPES.UPDATE_TASK_ITEM,
     task, //id: id
   };
 };
 
 export const filterTasks = (filterState) => {
   return {
-    type: types.filterTasks,
+    type: ACTION_TYPES.filterTasks,
     filterState, //id: id
   };
 };

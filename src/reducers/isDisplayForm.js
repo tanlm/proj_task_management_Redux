@@ -1,15 +1,15 @@
-import * as types from "./../constants/ActionType";
+import { ACTION_TYPES } from "./../constants/Constants";
 
 var initialState = false;
 
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
-    case types.TOGGLE_FORM:
+    case ACTION_TYPES.TOGGLE_FORM:
       return !state;
-    case types.OPEN_FORM:
+    case ACTION_TYPES.OPEN_FORM:
       state = true;
       return state;
-    case types.CLOSE_FORM:
+    case ACTION_TYPES.CLOSE_FORM:
       state = false;
       return state;
     default:
