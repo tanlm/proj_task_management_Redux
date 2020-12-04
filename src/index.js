@@ -6,6 +6,8 @@ import * as serviceWorker from "./serviceWorker";
 import { createStore } from "redux";
 import myReducer from "./app/shared/reducer/index";
 import { Provider } from "react-redux";
+import "./app/shared/assets/css/fontawesome-free/css/all.min.css";
+import "./app/shared/assets/css/adminlte.css";
 
 const store = createStore(
   myReducer,
