@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import TaskItem from "./TaskItem";
+import TaskItem from "./task-Item";
 import { connect } from "react-redux";
-import * as actions from "./../actions/index";
+import * as actions from "../task-manager-action";
 
 function TaskList(props) {
   let { tasks, filterState, onFilter } = props;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as actions from "./../actions/index";
+import * as actions from "../task-manager-action";
 import { connect } from "react-redux";
 
 function Search(props) {

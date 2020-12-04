@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "../constants/Constants";
+import { ACTION_TYPES } from "../../../config/Constants";
 
 var initialState = {
   filterName: "",
@@ -10,12 +10,12 @@ var initialState = {
 var myReducer = (state = initialState, action) => {
   switch (action.type) {
     case ACTION_TYPES.FILTER_TASKS:
-      return {
+      return Object.assign({}, state, {
         filterName: action.filterState.filterName,
         filterStatus: parseInt(action.filterState.filterStatus),
         filterMoney: action.filterState.filterMoney,
         filterDateTime: action.filterState.filterDateTime
-      };
+      });
     default:
       return state;
   }
