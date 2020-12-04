@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import * as actions from "../task-manager-action";
+import { connect } from "react-redux";
 
 function Search(props) {
   const { onSearch } = props;
@@ -44,5 +46,14 @@ function Search(props) {
     </div>
   );
 }
-
-export default Search;
+const mapStateToProps = (state) => {
+  return {};
+};
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onSearch: (keyWord) => {
+      dispatch(actions.searchTasks(keyWord));
+    },
+  };
+};
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

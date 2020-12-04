@@ -1,4 +1,4 @@
-import { ACTION_TYPES } from "./../constants/Constants";
+import { ACTION_TYPES } from "../../../config/Constants";
 
 var initialState = false;
 

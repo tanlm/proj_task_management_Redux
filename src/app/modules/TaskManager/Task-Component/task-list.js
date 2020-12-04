@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import TaskItem from "./TaskItem";
+import TaskItem from "./task-Item";
 import { connect } from "react-redux";
-import * as actions from "./../actions/index";
+import * as actions from "../task-manager-action";
 
 function TaskList(props) {
   let { tasks, filterState, onFilter } = props;
@@ -23,30 +23,33 @@ function TaskList(props) {
     };
     onFilter(filter);
     setFilterName(filter.filterName);
-    setFilterMoney(filterMoney);
-    setFilterDateTime(filterDateTime);
-    setFilterStatus(filterStatus);
+    setFilterMoney(filter.filterMoney);
+    setFilterDateTime(filter.filterDateTime);
+    setFilterStatus(filter.filterStatus);
   };
 
   // fill on table
+  console.log(filterState);
   if (filterState) {
     if (filterState.filterName) {
       tasks = tasks.filter((task) => {
         return task.name.toLowerCase().indexOf(filterState.filterName) !== -1;
       });
     }
-
-    tasks = tasks.filter((task) => {
-      if (filterState.filterStatus === -1) {
-        return task;
-      } else {
-        return (task.status = filterState.filterStatus === 1 ? true : false);
-      }
-    });
+    if (filterState.filterMoney) {
+      tasks = tasks.filter((task) => task.money === filterState.filterMoney);
+    }
+    if (filterState.filterStatus === 1) {
+      tasks = tasks.filter((task) => task.status === true);
+    } else if (filterState.filterStatus === 0) {
+      tasks = tasks.filter((task) => task.status === false);
+    }
   }
-  var elmTasks = tasks.map((task, index) => {
+  let tasksElement = tasks.map((task, index) => {
     return <TaskItem key={index} index={index} task={task} />;
   });
+
+  console.log(tasks);
 
   return (
     <table className="table table-bordered table-hover mt-15">
@@ -76,7 +79,7 @@ function TaskList(props) {
             <input
               type="text"
               className="form-control"
-              name="filterName"
+              name="filterMoney"
               value={filterMoney}
               onChange={onChangeControl}
             />
@@ -85,7 +88,7 @@ function TaskList(props) {
             <input
               type="text"
               className="form-control"
-              name="filterName"
+              name="filterDateTime"
               value={filterDateTime}
               onChange={onChangeControl}
             />
@@ -98,13 +101,13 @@ function TaskList(props) {
               onChange={onChangeControl}
             >
               <option value={-1}>Tất Cả</option>
-              <option value={0}>Ẩn</option>
+              <option value={0}>Không Kích Hoạt</option>
               <option value={1}>Kích Hoạt</option>
             </select>
           </td>
           <td />
         </tr>
-        {elmTasks}
+        {tasksElement}
         <tr>
           <td></td>
           <td></td>

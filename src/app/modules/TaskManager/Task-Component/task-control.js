@@ -1,7 +1,7 @@
 import React from "react";
-import Search from "./Search";
-import Sort from "./Sort";
-import ExportExcel from "./ExportExcel";
+import Search from "./task-search";
+import Sort from "./task-sort";
+import ExportExcel from "./task-export-excel";
 
 function Control(props) {
   const onSearch = props

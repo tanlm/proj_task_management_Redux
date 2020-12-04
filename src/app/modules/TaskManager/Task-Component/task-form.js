@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import * as actions from "./../actions/index";
-import { MESSAGES } from "./../constants/Constants";
+import * as actions from "../task-manager-action";
+import { MESSAGES } from "../../../config/Constants";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
