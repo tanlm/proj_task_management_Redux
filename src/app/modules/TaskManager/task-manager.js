@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import "./../../shared/assets/css/index.css";
-import TaskForm from "./Task-Component/task-form";
-import Control from "./Task-Component/task-control";
-import TaskList from "./Task-Component/task-list";
+import TaskForm from "./task-manager-component/task-form";
+import Control from "./task-manager-component/task-control";
+import TaskList from "./task-manager-component/task-list";
 import { connect } from "react-redux";
 import * as actions from "./task-manager-action";
 
