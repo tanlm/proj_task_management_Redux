@@ -1,27 +1,36 @@
-import React from "react";
-// import menus from "./../../shared/layout/MenuItem";
-// import LogoTitle from "../../shared/assets/images/logo-title.png";
-// import SideNav, {
-//   Toggle,
-//   Nav,
-//   NavItem,
-//   NavIcon,
-//   NavText,
-// } from "@trendmicro/react-sidenav";
-// import styled from "styled-components";
-// const navWidthCollapsed = 40;
-// const navWidthExpanded = 190;
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import * as actions from "./common-action";
 
-function Navbar() {
+function Navbar(props) {
+  const { onShowHideSidebar } = props;
+  const [showHideNav, setShowHideNav] = useState(false);
+  const [show, setShow] = useState("");
+
   let urlDefault = "";
+  useEffect(
+    () => {
+      showHideNav ?  setShow("main-header-showfull") : setShow("");
+    },
+    [showHideNav]
+  );
+  const onClickNavLink = () => {
+    showHideNav ? setShowHideNav(false) : setShowHideNav(true);
+
+    onShowHideSidebar(showHideNav);
+  };
+  console.log(showHideNav)
+  console.log(show);
   return (
-    <nav className="main-header navbar navbar-expand navbar-white navbar-light">
+    <nav
+      className={`main-header navbar navbar-expand navbar-white navbar-light ${show}`}
+    >
       {/* <!-- Left navbar links --> */}
       <ul className="navbar-nav">
         <li className="nav-item">
-          <a className="nav-link" data-widget="pushmenu" href={urlDefault} role="button">
+          <button className="nav-link" onClick={onClickNavLink}>
             <i className="fas fa-bars"></i>
-          </a>
+          </button>
         </li>
         <li className="nav-item d-none d-sm-inline-block">
           <a href="index3.html" className="nav-link">
@@ -156,45 +165,69 @@ function Navbar() {
           </div>
         </li>
         {/* <!-- Notifications Dropdown Menu --> */}
-      <li className="nav-item dropdown">
-        <a className="nav-link" data-toggle="dropdown" href={urlDefault}>
-          <i className="far fa-bell"></i>
-          <span className="badge badge-warning navbar-badge">15</span>
-        </a>
-        <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span className="dropdown-header">15 Notifications</span>
-          <div className="dropdown-divider"></div>
-          <a href={urlDefault} className="dropdown-item">
-            <i className="fas fa-envelope mr-2"></i> 4 new messages
-            <span className="float-right text-muted text-sm">3 mins</span>
+        <li className="nav-item dropdown">
+          <a className="nav-link" data-toggle="dropdown" href={urlDefault}>
+            <i className="far fa-bell"></i>
+            <span className="badge badge-warning navbar-badge">15</span>
           </a>
-          <div className="dropdown-divider"></div>
-          <a href={urlDefault} className="dropdown-item">
-            <i className="fas fa-users mr-2"></i> 8 friend requests
-            <span className="float-right text-muted text-sm">12 hours</span>
+          <div className="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <span className="dropdown-header">15 Notifications</span>
+            <div className="dropdown-divider"></div>
+            <a href={urlDefault} className="dropdown-item">
+              <i className="fas fa-envelope mr-2"></i> 4 new messages
+              <span className="float-right text-muted text-sm">3 mins</span>
+            </a>
+            <div className="dropdown-divider"></div>
+            <a href={urlDefault} className="dropdown-item">
+              <i className="fas fa-users mr-2"></i> 8 friend requests
+              <span className="float-right text-muted text-sm">12 hours</span>
+            </a>
+            <div className="dropdown-divider"></div>
+            <a href={urlDefault} className="dropdown-item">
+              <i className="fas fa-file mr-2"></i> 3 new reports
+              <span className="float-right text-muted text-sm">2 days</span>
+            </a>
+            <div className="dropdown-divider"></div>
+            <a href={urlDefault} className="dropdown-item dropdown-footer">
+              See All Notifications
+            </a>
+          </div>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            data-widget="fullscreen"
+            href={urlDefault}
+            role="button"
+          >
+            <i className="fas fa-expand-arrows-alt"></i>
           </a>
-          <div className="dropdown-divider"></div>
-          <a href={urlDefault} className="dropdown-item">
-            <i className="fas fa-file mr-2"></i> 3 new reports
-            <span className="float-right text-muted text-sm">2 days</span>
+        </li>
+        <li className="nav-item">
+          <a
+            className="nav-link"
+            data-widget="control-sidebar"
+            data-slide="true"
+            href={urlDefault}
+            role="button"
+          >
+            <i className="fas fa-th-large"></i>
           </a>
-          <div className="dropdown-divider"></div>
-          <a href={urlDefault} className="dropdown-item dropdown-footer">See All Notifications</a>
-        </div>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" data-widget="fullscreen" href={urlDefault} role="button">
-          <i className="fas fa-expand-arrows-alt"></i>
-        </a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" data-widget="control-sidebar" data-slide="true" href={urlDefault} role="button">
-          <i className="fas fa-th-large"></i>
-        </a>
-      </li>
+        </li>
       </ul>
     </nav>
   );
 }
+const mapStateToProps = (state) => {
+  return {};
+};
 
-export default Navbar;
+const mapDispatchToProps = (dispatch, props) => {
+  return {
+    onShowHideSidebar: (showHideNav) => {
+      dispatch(actions.showAndHideSidebar(showHideNav));
+    },
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar);

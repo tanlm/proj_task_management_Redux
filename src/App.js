@@ -2,8 +2,7 @@ import React from "react";
 import "./app/shared/assets/css/index.css";
 
 import TaskManager from "./app/modules/TaskManager/task-manager";
-import Sidebar from "./app/modules/common/Sidebar";
-import Navbar from "./app/modules/common/navbar";
+import Header from "./app/modules/common/header";
 import Footer from "./app/modules/common/footer";
 import { connect } from "react-redux";
 
@@ -11,12 +10,16 @@ function App() {
   return (
     <div className="hold-transition">
       <div className="">
-        <Navbar />
-        <Sidebar />
-        <TaskManager /> 
+        <Header />
+        <div className="content-wrapper">
+          <div className="content">
+            <div className="container-fluid">
+              <TaskManager />
+            </div>
+          </div>
+        </div>
         <Footer />
       </div>
-     
     </div>
   );
 }

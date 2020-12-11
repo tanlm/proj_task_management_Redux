@@ -10,6 +10,10 @@ export const ACTION_TYPES = {
   FILTER_TASKS: "FILTER_TASKS",
   SEARCH_KEY: "SEARCH_KEY",
 };
+export const ACTION_COMMON = {
+  SHOW_HIDE_SIDEBAR: "SHOW_HIDE_SIDEBAR",
+};
+
 
 export const MESSAGES = {
   NOT_EMPTY: "Cannot be empty",
